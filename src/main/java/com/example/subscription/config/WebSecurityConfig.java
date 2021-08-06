@@ -19,11 +19,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .mvcMatchers("/").permitAll()
-                .anyRequest().authenticated()
+                    .antMatcher("/**")
+                    .authorizeRequests()
+                    .antMatchers("/", "/login**", "/js/**", "/error**").permitAll()
+                    .anyRequest()
+                    .authenticated()
                 .and()
-                .csrf().disable();
+                    .logout()
+                    .logoutSuccessUrl("/")
+                    .permitAll()
+                .and()
+                    .csrf()
+                    .disable();
     }
 
     @Bean
@@ -37,7 +44,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 newUser.setId(id);
                 newUser.setName((String) map.get("name"));
                 newUser.setEmail((String) map.get("email"));
-                newUser.setGender((String) map.get("gender"));
                 newUser.setLocale((String) map.get("locale"));
                 newUser.setUserpic((String) map.get("picture"));
 

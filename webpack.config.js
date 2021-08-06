@@ -10,7 +10,7 @@ module.exports = {
     compress: true,
     port: 8000,
     allowedHosts: [
-      'localhost:9000'
+      'localhost:1234'
     ]
   },
   module: {

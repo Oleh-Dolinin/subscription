@@ -1,8 +1,10 @@
 package com.example.subscription.controller;
 
 import com.example.subscription.model.News;
+import com.example.subscription.model.User;
 import com.example.subscription.repos.NewsRepo;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -29,8 +31,9 @@ public class NewsController {
     }
 
     @PostMapping
-    public News create(@RequestBody News message) {
+    public News create(@RequestBody News message, @AuthenticationPrincipal User user) {
         message.setLocalDateTime(LocalDateTime.now());
+        message.setAuthor(user);
         return newsRepo.save(message);
     }
 
