@@ -2,14 +2,12 @@ package com.example.subscription.controller;
 
 import com.example.subscription.model.User;
 import com.example.subscription.repos.NewsRepo;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 public class GreetingController {
