@@ -14,9 +14,6 @@ import java.util.Map;
 @Controller
 public class GreetingController {
 
-    @Value("${spring.profiles.active}")
-    private String profile;
-
     private NewsRepo newsRepo;
 
     public GreetingController(NewsRepo newsRepo) {
@@ -25,13 +22,12 @@ public class GreetingController {
 
     @GetMapping
     public String main(Model model, @AuthenticationPrincipal User user){
-        Map<Object, Object> data = new HashMap<>();
+        HashMap<Object, Object> data = new HashMap<>();
 
         data.put("profile", user);
         data.put("messages", newsRepo.findAll());
 
         model.addAttribute("frontendData", data);
-        model.addAttribute("isDevMode", "dev".equals(profile));
 
         return "index";
     }

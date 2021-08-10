@@ -45,7 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 newUser.setName((String) map.get("name"));
                 newUser.setEmail((String) map.get("email"));
                 newUser.setLocale((String) map.get("locale"));
-                newUser.setUserpic((String) map.get("picture"));
 
                 return newUser;
             });

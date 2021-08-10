@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -11,13 +12,11 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "usr")
-@ToString(exclude = "goods")
-public class User{
+public class User implements Serializable {
 
     @Id
     private String id;
     private String name;
-    private String userpic;
     private String email;
     private String locale;
     private LocalDateTime lastVisit;
