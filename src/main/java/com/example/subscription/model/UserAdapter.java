@@ -7,7 +7,6 @@ import com.google.gson.JsonSerializer;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.lang.reflect.Type;
-import java.util.stream.Collectors;
 
 @JsonComponent
 public class UserAdapter implements JsonSerializer<User> {
