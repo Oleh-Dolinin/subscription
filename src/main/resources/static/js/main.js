@@ -10,6 +10,7 @@ function getIndex(list, id) {
 
 var messageApi = Vue.resource('/news{/id}');
 
+
 Vue.component('message-form', {
     props: ['messages', 'messageAttr'],
     data: function() {
@@ -108,7 +109,7 @@ var app = new Vue({
     '<div>' +
         '<div v-if="!profile">Необходимо авторизоваться через <a href="/login">Google</a></div>' +
         '<div v-else>' +
-            '<div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a></div>' +
+            '<div>{{profile}}&nbsp;<a href="/logout">Выйти</a></div>' +
             '<messages-list :messages="messages" :profile="profile" />' +
         '</div>' +
     '</div>',

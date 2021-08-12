@@ -12,6 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "usr")
+@ToString(exclude = "goods")
 public class User implements Serializable {
 
     @Id
@@ -19,7 +20,6 @@ public class User implements Serializable {
     private String name;
     private String email;
     private String locale;
-    private LocalDateTime lastVisit;
 
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
