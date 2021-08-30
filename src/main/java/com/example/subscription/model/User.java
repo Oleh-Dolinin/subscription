@@ -1,18 +1,20 @@
 package com.example.subscription.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "usr")
-@ToString(exclude = "goods")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
     @Id
@@ -21,8 +23,8 @@ public class User implements Serializable {
     private String email;
     private String locale;
 
-
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private Set<News> goods;
 
     @Override
@@ -37,4 +39,5 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

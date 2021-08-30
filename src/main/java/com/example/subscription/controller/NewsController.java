@@ -1,47 +1,30 @@
 package com.example.subscription.controller;
 
 import com.example.subscription.model.News;
-import com.example.subscription.model.NewsAdapter;
 import com.example.subscription.model.User;
 import com.example.subscription.repos.NewsRepo;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("news")
 public class NewsController {
 
-    @Autowired
-    private NewsAdapter newsAdapter;
-
-    private  NewsRepo newsRepo;
-
-    public NewsController(NewsRepo messageRepo) {
-        this.newsRepo = messageRepo;
+    private final NewsRepo newsRepo;
+    public NewsController(NewsRepo newsRepo) {
+        this.newsRepo = newsRepo;
     }
 
+
     @GetMapping
-    public String list() {
-
-        Gson gson = new GsonBuilder().registerTypeAdapter(News.class, newsAdapter).create();
-        String jsonString =  gson.toJson(newsRepo.findAll());
-
-        return jsonString;
-
+    public List<News> list() {
+        return newsRepo.findAll();
     }
 
     @GetMapping("{id}")
     public News getOne(@PathVariable("id") News message) {
-
-        Gson gson = new GsonBuilder().registerTypeAdapter(News.class, newsAdapter).create();
-        String jsonString =  gson.toJson(message);
-
         return message;
     }
 
@@ -51,12 +34,11 @@ public class NewsController {
         return newsRepo.save(message);
     }
 
+
     @PutMapping("{id}")
-    public News update(
-            @PathVariable("id") News messageFromDb,
-            @RequestBody News message
-    ) {
-        BeanUtils.copyProperties(message, messageFromDb, "id");
+    public News update(@PathVariable("id") News messageFromDb, @RequestBody News message) {
+        messageFromDb.setTitle(message.getTitle());
+        messageFromDb.setDescription(message.getDescription());
 
         return newsRepo.save(messageFromDb);
     }
@@ -65,4 +47,6 @@ public class NewsController {
     public void delete(@PathVariable("id") News message) {
         newsRepo.delete(message);
     }
+
+    
 }

@@ -10,4 +10,10 @@ import java.util.Set;
 @Component
 public interface NewsRepo extends JpaRepository<News, Long> {
 
+    List<News> findByTitleAndDescription (String title,String description);
+
+    List<News> findByTitle (String title);
+
+    List<News> findByDescription (String description);
+
 }

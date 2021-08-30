@@ -29,9 +29,9 @@ Vue.component('message-form', {
     },
     template:
         '<div>' +
-            '<input type="text" placeholder="Write something" v-model="title" />' +
-            '<input type="text" placeholder="Write something" v-model="description" />' +
-            '<input type="button" value="Save" @click="save" />' +
+                '<input type="text" placeholder="Write something" v-model="title" />' +
+                '<input type="text" placeholder="Write something" v-model="description" />' +
+                '<input type="button" value="Save" @click="save" />' +
         '</div>',
     methods: {
         save: function() {
@@ -61,14 +61,15 @@ Vue.component('message-form', {
 });
 
 Vue.component('message-row', {
-    props: ['message', 'editMethod', 'messages', 'profile'],
-    template: '<div>' +
-        '<i>({{ message.id }})</i> {{ message.title }}  {{ message.description }} {{ message.user_id }} ' +
+    props: ['message', 'editMethod', 'messages', 'profile','profileID' , 'messageID'],
+    template:
+    '<div>' +
+        '<i>({{ message.id }})</i> {{ message.title }}  {{ message.description }}  ' +
         '<span style="position: absolute; right: 0">' +
-                 '<input type="button" value="Edit" @click="edit" />' +
-                 '<input type="button" value="X" @click="del" />' +
+              '<input type="button" value="Edit" @click="edit" />' +
+              '<input type="button" value="X" @click="del" />' +
         '</span>' +
-        '</div>',
+    '</div>',
     methods: {
         edit: function() {
             this.editMethod(this.message);
@@ -93,7 +94,7 @@ Vue.component('messages-list', {
   template:
     '<div style="position: relative; width: 300px;">' +
         '<message-form :messages="messages" :messageAttr="message" />' +
-        '<message-row v-for="message in messages" :key="message.id" :message="message" :profile="profile" ' +
+        '<message-row v-for="message in messages" :key="message.id" :message="message" :messageID="message.author.id " :profile="profile" :profileID="profile.id" ' +
             ':editMethod="editMethod" :messages="messages" />' +
     '</div>',
   methods: {
@@ -109,7 +110,7 @@ var app = new Vue({
     '<div>' +
         '<div v-if="!profile">Необходимо авторизоваться через <a href="/login">Google</a></div>' +
         '<div v-else>' +
-            '<div>{{profile}}&nbsp;<a href="/logout">Выйти</a></div>' +
+            '<div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a></div>' +
             '<messages-list :messages="messages" :profile="profile" />' +
         '</div>' +
     '</div>',
